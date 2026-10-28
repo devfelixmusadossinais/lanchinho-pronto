@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1F4332">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lancheira Fácil">
+<title>Lancheira Fácil — Meus Materiais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6FAF7; --card:#fff; --ink:#1E3A2D; --soft:#5B7466; --line:#DDE9E1;
+  --navy:#2F5D45; --navy2:#1F4332;
+  --cta:#FF6B2C; --cta-d:#D9511A;
+  --teal:#0E9AA7; --teal-s:#DFF4F6;
+  --sol:#FFC93C; --sol-s:#FFF4CC;
+  --ok:#2E9E6B;
+  --head:'Space Grotesk',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif;
+  --tab:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+img{display:block;max-width:100%}
+
+/* casca do app */
+#app{max-width:480px;margin:0 auto;min-height:100%;padding-bottom:calc(var(--tab) + 24px + env(safe-area-inset-bottom));position:relative}
+.view{display:none;animation:fade .3s ease}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* topo */
+.top{background:linear-gradient(160deg,var(--navy2),var(--navy));color:#fff;padding:calc(22px + env(safe-area-inset-top)) 18px 56px;border-radius:0 0 30px 30px}
+.top .row{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.hi small{display:block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.hi h1{font-family:var(--head);font-size:23px;line-height:1.15;margin-top:3px}
+.hi h1 em{font-style:normal;color:var(--sol)}
+.ring{position:relative;width:64px;height:64px;flex:0 0 64px}
+.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font:700 15px var(--head)}
+.pull{margin:-34px 16px 0;position:relative;z-index:2}
+
+/* blocos */
+.sec{padding:0 16px;margin-top:24px}
+.sec h2{font-family:var(--head);font-size:19px;line-height:1.2}
+.sec .sub{font-size:13.5px;color:var(--soft);margin-top:2px}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:12px}
+.sh a,.sh button{font:700 13px var(--head);color:var(--teal);white-space:nowrap}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:18px}
+
+/* continuar */
+.cont{display:flex;gap:14px;align-items:center;padding:14px;box-shadow:0 10px 26px rgba(31,67,50,.13);text-align:left;width:100%}
+.cont img{width:62px;height:82px;object-fit:cover;border-radius:10px;border:1px solid var(--line);flex:0 0 62px}
+.cont small{font:700 11px var(--head);letter-spacing:.07em;text-transform:uppercase;color:var(--cta)}
+.cont h3{font-family:var(--head);font-size:16.5px;line-height:1.25;margin:2px 0 8px}
+.bar{height:7px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--ok));border-radius:99px;transition:width .5s}
+.go{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:var(--cta);color:#fff;display:grid;place-items:center;font-size:18px;box-shadow:0 4px 0 var(--cta-d)}
+
+/* destaque principal */
+.hero{overflow:hidden;border-color:var(--cta);box-shadow:0 12px 28px rgba(255,107,44,.15)}
+.hero .im{position:relative;background:var(--sol-s);aspect-ratio:16/10;overflow:hidden}
+.hero .im img{width:100%;height:100%;object-fit:cover;object-position:top}
+.hero .im span{position:absolute;left:12px;top:12px;background:var(--cta);color:#fff;font:700 11px var(--head);letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:99px}
+.hero .bd{padding:15px}
+.hero h3{font-family:var(--head);font-size:19px;line-height:1.2}
+.hero p{font-size:13.5px;color:var(--soft);margin:4px 0 12px}
+.acts{display:flex;gap:8px;margin-top:12px}
+.b{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font:700 14.5px var(--head);border-radius:13px;padding:12px 10px;min-height:46px;text-decoration:none}
+.b.v{background:var(--cta);color:#fff;box-shadow:0 4px 0 var(--cta-d)}
+.b.v:active{transform:translateY(3px);box-shadow:0 1px 0 var(--cta-d)}
+.b.d{background:var(--teal-s);color:#0A6A73}
+.b.g{background:#fff;border:1.5px solid var(--line);color:var(--soft)}
+
+/* carrossel 3D (coverflow) */
+.cf{--cw:min(62vw,250px);position:relative;display:flex;align-items:center;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:14px 0 26px;scrollbar-width:none;-webkit-overflow-scrolling:touch;perspective:1000px;cursor:grab;overscroll-behavior-x:contain}
+.cf::-webkit-scrollbar{display:none}
+.cf.drag{cursor:grabbing;scroll-snap-type:none}
+.cf::before,.cf::after{content:"";flex:0 0 calc((100% - var(--cw)) / 2)}
+.cfc{flex:0 0 var(--cw);scroll-snap-align:center;background:#fff;border:1.5px solid var(--line);border-radius:22px;overflow:hidden;text-align:left;display:flex;flex-direction:column;position:relative;box-shadow:0 22px 34px -14px rgba(31,67,50,.45);will-change:transform,opacity;transform-origin:center center;transition:box-shadow .3s}
+.cfc + .cfc{margin-left:calc(var(--cw) * -.16)}
+.cfc:not(.act){box-shadow:0 10px 18px -12px rgba(31,67,50,.3)}
+.cfc .im{position:relative;aspect-ratio:3/3.7;background:var(--sol-s);overflow:hidden}
+.cfc .im img{width:100%;height:100%;object-fit:cover;object-position:top;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.cfc .tag{position:absolute;left:10px;top:10px;background:var(--navy2);color:#fff;font:700 10.5px var(--head);letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:99px}
+.cfc .ck{position:absolute;right:10px;top:10px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;font-size:14px;color:transparent;border:2px solid var(--line)}
+.cfc.done .ck{background:var(--ok);border-color:var(--ok);color:#fff}
+.cfc .bd{padding:12px 14px 15px;display:flex;flex-direction:column;flex:1}
+.cfc h3{font-family:var(--head);font-size:15.5px;line-height:1.25;min-height:39px}
+.cfc p{font-size:12.5px;color:var(--soft);margin-top:4px}
+.cfc .b{margin-top:11px;min-height:42px;font-size:13.5px;padding:9px 8px}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:-8px}
+.dots i{width:6px;height:6px;border-radius:50%;background:var(--line);transition:.25s}
+.dots i.on{width:18px;border-radius:99px;background:var(--cta)}
+
+/* checklist */
+.chk{padding:6px 14px}
+.it{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);width:100%;text-align:left}
+.it:last-child{border-bottom:0}
+.box{flex:0 0 26px;width:26px;height:26px;border-radius:8px;border:2px solid #B9CDC0;display:grid;place-items:center;color:transparent;font-size:15px;font-weight:800;transition:.2s;margin-top:1px}
+.it.on .box{background:var(--ok);border-color:var(--ok);color:#fff;animation:pop .3s}
+@keyframes pop{50%{transform:scale(1.18)}}
+.it b{display:block;font-weight:600;font-size:15px;line-height:1.3}
+.it small{display:block;color:var(--soft);font-size:12.5px;margin-top:2px}
+.it.on b{text-decoration:line-through;color:var(--soft)}
+.go-l{margin-left:auto;align-self:center;font:700 12.5px var(--head);color:var(--teal);white-space:nowrap}
+
+/* biblioteca */
+.search input{width:100%;font:500 16px var(--body);color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:13px 15px;outline:none}
+.search input:focus{border-color:var(--teal)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;font:700 13px var(--head);padding:8px 14px;border-radius:99px;background:#fff;border:1.5px solid var(--line);color:var(--soft)}
+.chip.on{background:var(--navy2);border-color:var(--navy2);color:#fff}
+.li{display:flex;gap:13px;padding:12px;margin-bottom:11px;align-items:center;text-align:left;width:100%}
+.li img{width:64px;height:86px;object-fit:cover;object-position:top;border-radius:10px;border:1px solid var(--line);flex:0 0 64px}
+.li h3{font-family:var(--head);font-size:15px;line-height:1.25}
+.li p{font-size:12.5px;color:var(--soft);margin-top:2px}
+.li .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.pill{font:700 11px var(--head);padding:3px 9px;border-radius:99px;background:var(--teal-s);color:#0A6A73}
+.pill.ok{background:#DDF3E8;color:#1D7A52}
+.pill.lk{background:var(--sol-s);color:#8A6200}
+.empty{display:none;text-align:center;color:var(--soft);padding:28px 0}
+
+/* upsell */
+.lock .im img{filter:blur(5px) saturate(.8);transform:scale(1.08)}
+.lock .im::after{content:"🔒";position:absolute;inset:0;display:grid;place-items:center;font-size:34px;background:rgba(31,67,50,.35)}
+.promo{background:linear-gradient(150deg,var(--navy2),var(--navy));color:#fff;padding:18px;border-radius:18px;margin-bottom:14px}
+.promo small{font:700 11px var(--head);letter-spacing:.07em;text-transform:uppercase;color:var(--sol)}
+.promo h3{font-family:var(--head);font-size:20px;line-height:1.2;margin:4px 0 6px}
+.promo p{font-size:13.5px;color:rgba(255,255,255,.85)}
+.promo .b{margin-top:12px;background:var(--sol);color:#4A3500;box-shadow:0 4px 0 #D9A91B}
+.promo .b.o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);box-shadow:none}
+
+/* abas */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabs div{max-width:480px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);height:var(--tab)}
+.tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:600 11px var(--body);color:#7E9487;position:relative}
+.tabs button span{font-size:21px;line-height:1;filter:grayscale(1) opacity(.6);transition:.2s}
+.tabs button.on{color:var(--navy2)}
+.tabs button.on span{filter:none;transform:translateY(-2px)}
+.tabs button.on::before{content:"";position:absolute;top:0;width:28px;height:3px;border-radius:0 0 4px 4px;background:var(--cta)}
+
+/* leitor */
+#reader{position:fixed;inset:0;z-index:100;background:#0d1f17;display:none;flex-direction:column}
+#reader.on{display:flex;animation:fade .25s}
+.rb{display:flex;align-items:center;gap:6px;padding:8px 10px;padding-top:max(8px,env(safe-area-inset-top));background:var(--navy2);color:#fff}
+.rb .back{flex:0 0 44px;height:44px;border-radius:12px;background:rgba(255,255,255,.14);color:#fff;font-size:22px;display:grid;place-items:center}
+.rb .t{flex:1;min-width:0;padding:0 4px}
+.rb .t b{display:block;font:600 14px var(--head);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rb .t small{font-size:11.5px;color:rgba(255,255,255,.65)}
+.rb .ic{flex:0 0 44px;height:44px;border-radius:12px;background:rgba(255,255,255,.14);color:#fff;font-size:18px;display:grid;place-items:center;text-decoration:none}
+.rbody{position:relative;flex:1;background:#fff}
+.rbody iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.rld{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:var(--soft);font-size:14px;background:var(--bg)}
+.rf{display:flex;gap:8px;padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));background:var(--navy2)}
+.rf .b{min-height:48px}
+.rf .b.v{background:var(--ok);box-shadow:0 4px 0 #1D7A52}
+.rf .b.v.done{background:#fff;color:var(--ok);box-shadow:none}
+
+/* modal e toast */
+.mod{position:fixed;inset:0;z-index:120;background:rgba(10,25,17,.6);display:none;align-items:flex-end;justify-content:center}
+.mod.on{display:flex}
+.sheet{background:#fff;width:100%;max-width:480px;border-radius:24px 24px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));animation:up .3s ease}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet h3{font-family:var(--head);font-size:20px;line-height:1.2}
+.sheet p{font-size:14px;color:var(--soft);margin:6px 0 14px}
+.sheet input{width:100%;font:500 16px var(--body);border:1.5px solid var(--line);border-radius:13px;padding:14px;outline:none;margin-bottom:10px}
+.sheet input:focus{border-color:var(--teal)}
+.sheet .msg{font-size:13px;color:#B3261E;min-height:18px;margin:-2px 0 6px}
+.toast{position:fixed;left:50%;bottom:calc(var(--tab) + 18px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--navy2);color:#fff;font:600 13.5px var(--body);padding:11px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:.3s;z-index:130;white-space:nowrap}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;font-size:12.5px;color:var(--soft);padding:30px 16px 0}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.cfc{transform:none!important;opacity:1!important}}
+</style>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "z4tkz7217o");
+</script>
+<!-- Microsoft Clarity (projeto anterior) -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "z2rjvpcx0d");
+</script>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- INÍCIO -->
+  <section class="view" id="v-home">
+    <div class="top">
+      <div class="row">
+        <div class="hi"><small>Acesso liberado</small><h1>Sua <em>Lancheira Fácil</em><br>está pronta 🎒</h1></div>
+        <div class="ring" aria-label="Progresso geral">
+          <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="7"/><circle id="ringc" cx="32" cy="32" r="27" fill="none" stroke="#FFC93C" stroke-width="7" stroke-linecap="round" stroke-dasharray="169.6" stroke-dashoffset="169.6" style="transition:stroke-dashoffset .8s"/></svg>
+          <b id="ringt">0%</b>
+        </div>
+      </div>
+    </div>
+    <div class="pull" id="cont"></div>
+
+    <div class="sec">
+      <div class="sh"><div><h2>Material principal</h2><div class="sub">Comece por aqui</div></div></div>
+      <div id="hero"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sh"><div><h2>Seus bônus</h2><div class="sub">Arraste para o lado ↔</div></div><button data-go="lib" data-f="bonus">Ver todos</button></div>
+      <div class="cf" id="cf-b"></div>
+      <div class="dots" id="d-b"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sh"><div><h2>Primeiros passos</h2><div class="sub" id="stepsub"></div></div><button data-go="chk">Abrir checklist</button></div>
+      <div class="card chk" id="steps-home"></div>
+    </div>
+
+    <div class="sec" id="home-more">
+      <div class="sh"><div><h2>Mais receitas</h2><div class="sub">Continue sua coleção</div></div><button data-go="more">Ver todas</button></div>
+      <div class="cf" id="cf-mh"></div>
+      <div class="dots" id="d-mh"></div>
+    </div>
+    <footer>Precisa de ajuda? Fale com o suporte pelo e-mail da sua compra.<br>Material de uso pessoal. Não compartilhe o seu acesso.</footer>
+  </section>
+
+  <!-- BIBLIOTECA -->
+  <section class="view" id="v-lib">
+    <div class="top" style="padding-bottom:50px"><div class="hi"><small>Biblioteca</small><h1>Todos os seus <em>materiais</em></h1></div></div>
+    <div class="pull search"><input id="q" type="search" placeholder="Buscar material…" autocomplete="off" aria-label="Buscar material"></div>
+    <div class="sec" style="margin-top:6px">
+      <div class="chips" id="chips">
+        <button class="chip on" data-f="all">Todos</button>
+        <button class="chip" data-f="main">Principal</button>
+        <button class="chip" data-f="bonus">Bônus</button>
+        <button class="chip" data-f="more">Mais receitas</button>
+        <button class="chip" data-f="done">Concluídos</button>
+      </div>
+      <div id="lib" style="margin-top:12px"></div>
+      <p class="empty" id="empty">Nenhum material encontrado.</p>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section class="view" id="v-chk">
+    <div class="top" style="padding-bottom:50px"><div class="hi"><small>Seu progresso</small><h1>Checklist da <em>lancheira</em></h1></div></div>
+    <div class="pull card" style="padding:16px">
+      <div style="display:flex;justify-content:space-between;font:700 13px var(--head);margin-bottom:8px"><span id="pc-l">0 de 0 concluídos</span><span id="pc-p">0%</span></div>
+      <div class="bar"><i id="pc-b" style="width:0"></i></div>
+    </div>
+    <div class="sec"><div class="sh"><div><h2>Primeiros passos</h2><div class="sub">Toque para marcar</div></div></div><div class="card chk" id="steps"></div></div>
+    <div class="sec"><div class="sh"><div><h2>Materiais lidos</h2><div class="sub">Marque quando terminar cada um</div></div></div><div class="card chk" id="mats"></div></div>
+  </section>
+
+  <!-- MAIS RECEITAS -->
+  <section class="view" id="v-more">
+    <div class="top" style="padding-bottom:50px"><div class="hi"><small>Coleção</small><h1>Mais <em>receitas</em></h1></div></div>
+    <div class="sec" style="margin-top:-30px;position:relative;z-index:2">
+      <div class="promo" id="promo"></div>
+      <div class="cf" id="cf-m"></div>
+      <div class="dots" id="d-m"></div>
+    </div>
+  </section>
+
+</div>
+
+<nav class="tabs" aria-label="Navegação"><div>
+  <button data-go="home" class="on"><span>🏠</span>Início</button>
+  <button data-go="lib"><span>📚</span>Materiais</button>
+  <button data-go="chk"><span>✅</span>Checklist</button>
+  <button data-go="more"><span>🍽️</span>Receitas</button>
+</div></nav>
+
+<!-- LEITOR -->
+<div id="reader" role="dialog" aria-modal="true" aria-label="Leitor de PDF">
+  <div class="rb">
+    <button class="back" id="rback" aria-label="Voltar">←</button>
+    <div class="t"><b id="rt"></b><small id="rs"></small></div>
+    <a class="ic" id="rdl" href="#" target="_blank" rel="noopener" aria-label="Baixar PDF">⬇️</a>
+    <a class="ic" id="rdr" href="#" target="_blank" rel="noopener" aria-label="Abrir no Google Drive">↗</a>
+  </div>
+  <div class="rbody"><div class="rld" id="rl">Carregando o PDF…<br>Se demorar, toque em ↗ para abrir direto no Drive.</div><iframe id="rf" title="PDF"></iframe></div>
+  <div class="rf"><button class="b g" id="rb2" style="flex:0 0 auto;padding:0 18px">Voltar</button><button class="b v" id="rdone">✓ Marcar como concluído</button></div>
+</div>
+
+<!-- MODAL: já comprei -->
+<div class="mod" id="mod">
+  <div class="sheet">
+    <h3>Liberar meu acesso</h3>
+    <p>Digite o e-mail que você usou na compra. Se o pagamento estiver confirmado, liberamos na hora.</p>
+    <input id="em" type="email" inputmode="email" placeholder="seu@email.com" autocomplete="email">
+    <div class="msg" id="emsg"></div>
+    <div class="acts"><button class="b g" id="mcancel">Cancelar</button><button class="b v" id="mok">Liberar</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== CONFIG =====
+ * Mais receitas (upsell): deixe locked:false enquanto estiver aberto.
+ * Para trancar: locked:true, preencha checkoutUrl (link da Cakto) e api
+ * (endpoint que recebe ?email= e devolve {ok:true, ids:{cafes:"...",...}}).
+ * Com locked:true os IDs do Drive dessas receitas NÃO ficam no HTML:
+ * só chegam pela API depois da compra confirmada. */
+var CONFIG = {
+  locked: false,
+  checkoutUrl: "",
+  api: ""
+};
+var UPSELL_IDS = { // usado só enquanto locked:false; ao trancar, apague este bloco
+  cafes:"1Q_8eJcjjZ4WATwEyQqXk8ValbBX8zAAQ",
+  jantinhas:"1715VWvv3bKrYRiznqlV30zAs_ROa6hHc",
+  docinhos:"1QEC16em3YlkBekXGses1QjGTj5oyaDnS",
+  suquinhos:"19Jx0b0zO33TOqK8MiZ77txw5y1LvMq59"
+};
+
+var M = [
+  {k:"lanchinhos150", g:"main",  t:"150 Lanchinhos Escolares na Air Fryer", d:"O material completo, com um lanchinho por página.", pg:150, id:"1NtOLAg-PuW0rSwXOyEmlLZ0qNPaL4qQk"},
+  {k:"cardapios", g:"bonus", n:1, t:"4 Cardápios Semanais Prontos", d:"4 semanas, 20 combinações de segunda a sexta.", pg:6, id:"1OIa0aD95zX3KvL0y9CW4_l7dIWXg1djr"},
+  {k:"lista",     g:"bonus", n:2, t:"Lista de Compras Semanais", d:"Compre só o que vai usar na semana.", pg:7, id:"1w9r3Ovf5wnybBi5vHipD7_pCE1zpOIj6"},
+  {k:"congelar",  g:"bonus", n:3, t:"20 Lanches para Congelar", d:"Prepare no domingo e finalize na air fryer.", pg:20, id:"1a9cJ1SH52pajRJ9NVws74GbqDwgxg2lf"},
+  {k:"paladar",   g:"bonus", n:4, t:"15 Lanches para Paladar Seletivo", d:"Para quem devolve a lancheira cheia.", pg:17, id:"1YhHPMC4i3tmJZFcF43wSM82NBBwRGsdh"},
+  {k:"trocas",    g:"bonus", n:5, t:"Guia de Trocas e Substituições", d:"Troque ingredientes sem estragar a receita.", pg:8, id:"1WrgyQufNrqKwg9BOGz77C4iQnsldUhE2"},
+  {k:"cafes",     g:"more", t:"30 Cafés da Manhã Infantis", d:"Café da manhã rápido, em 10 minutos.", pg:31},
+  {k:"jantinhas", g:"more", t:"30 Jantinhas de Uma Panela", d:"Jantares simples, tudo na mesma panela.", pg:35},
+  {k:"docinhos",  g:"more", t:"30 Docinhos Caseiros", d:"Docinhos caseiros para a lancheira.", pg:32},
+  {k:"suquinhos", g:"more", t:"30 Suquinhos Naturais", d:"Para acompanhar o lanche.", pg:32}
+];
+var STEPS = [
+  {id:"s1", t:"Abra o 150 Lanchinhos e escolha 5 favoritos", s:"Comece pelos que a criança já gosta", go:"lanchinhos150"},
+  {id:"s2", t:"Escolha um dos 4 cardápios semanais", s:"Já vem com as combinações de segunda a sexta", go:"cardapios"},
+  {id:"s3", t:"Monte a lista de compras da semana", s:"Use a lista pronta para não esquecer nada", go:"lista"},
+  {id:"s4", t:"Prepare os lanches de congelar no domingo", s:"Na manhã, é só finalizar na air fryer", go:"congelar"},
+  {id:"s5", t:"Teste 1 lanche novo com a criança", s:"Se ela torcer o nariz, veja o guia de paladar seletivo", go:"paladar"}
+];
+
+/* ===== estado (localStorage com fallback) ===== */
+var mem = {};
+function ld(k, d){ try{ var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return mem[k] !== undefined ? mem[k] : d; } }
+function sv(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){ mem[k] = v; } }
+var done = ld("lf_done", {}), steps = ld("lf_steps", {}), last = ld("lf_last", null), unlocked = ld("lf_unlocked", null);
+
+function ev(n){ try{ if(window.clarity) clarity("event", n); }catch(e){} }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function byKey(k){ for(var i=0;i<M.length;i++) if(M[i].k===k) return M[i]; }
+function fileId(m){
+  if(m.id) return m.id;
+  if(!CONFIG.locked) return UPSELL_IDS[m.k];
+  return unlocked && unlocked.ids ? unlocked.ids[m.k] : null;
+}
+function isLocked(m){ return m.g==="more" && CONFIG.locked && !fileId(m); }
+function L(id,t){ return "https://drive.google.com/" + (t==="prev" ? "file/d/"+id+"/preview" : t==="dl" ? "uc?export=download&id="+id : "file/d/"+id+"/view"); }
+function toast(t){ var e=document.getElementById("toast"); e.textContent=t; e.classList.add("on"); clearTimeout(toast._t); toast._t=setTimeout(function(){e.classList.remove("on")},2200); }
+
+/* progresso geral: materiais liberados + passos */
+function counts(){
+  var mats = M.filter(function(m){ return !isLocked(m); });
+  var dm = mats.filter(function(m){ return done[m.k]; }).length;
+  var ds = STEPS.filter(function(s){ return steps[s.id]; }).length;
+  var total = mats.length + STEPS.length, got = dm + ds;
+  return {dm:dm, mt:mats.length, ds:ds, st:STEPS.length, got:got, total:total, pct:Math.round(got/total*100)};
+}
+
+/* ===== telas ===== */
+function img(k, suf){ return "assets/"+k+(suf||"")+".webp"; }
+
+function rHome(){
+  var c = counts();
+  document.getElementById("ringt").textContent = c.pct+"%";
+  document.getElementById("ringc").style.strokeDashoffset = 169.6 * (1 - c.pct/100);
+
+  var lm = last && byKey(last), cont = document.getElementById("cont");
+  var m = (lm && !isLocked(lm)) ? lm : byKey("lanchinhos150");
+  cont.innerHTML = '<button class="card cont" data-open="'+m.k+'"><img src="'+img(m.k)+'" alt="">'+
+    '<div style="flex:1;min-width:0"><small>'+(lm?"Continuar de onde parou":"Comece por aqui")+'</small><h3>'+esc(m.t)+'</h3>'+
+    '<div class="bar"><i style="width:'+(done[m.k]?100:0)+'%"></i></div></div><span class="go">▶</span></button>';
+
+  var h = byKey("lanchinhos150");
+  document.getElementById("hero").innerHTML = '<div class="card hero"><div class="im"><img src="'+img(h.k,"-p")+'" alt=""><span>Principal</span></div>'+
+    '<div class="bd"><h3>'+esc(h.t)+'</h3><p>'+esc(h.d)+'</p>'+
+    '<div class="acts"><button class="b v" data-open="'+h.k+'">👁️ Visualizar</button><a class="b d" href="'+L(h.id,"dl")+'" target="_blank" rel="noopener" data-dl="'+h.k+'">⬇️ Baixar</a></div></div></div>';
+
+  cfSet("cf-b", "d-b", M.filter(function(x){ return x.g==="bonus"; }).map(function(b){
+    return '<button class="cfc'+(done[b.k]?" done":"")+'" data-open="'+b.k+'"><div class="im"><img src="'+img(b.k)+'" alt="" draggable="false"><span class="tag">Bônus '+b.n+'</span><span class="ck">✓</span></div>'+
+      '<div class="bd"><h3>'+esc(b.t)+'</h3><p>'+b.pg+' páginas</p></div></button>';
+  }).join(""));
+
+  document.getElementById("stepsub").textContent = c.ds+" de "+c.st+" feitos";
+  document.getElementById("steps-home").innerHTML = STEPS.slice(0,3).map(stepHtml).join("");
+  rUps("cf-mh", "d-mh");
+}
+function stepHtml(s){
+  return '<div class="it'+(steps[s.id]?" on":"")+'" data-step="'+s.id+'" role="checkbox" aria-checked="'+(!!steps[s.id])+'" tabindex="0"><span class="box">✓</span><div><b>'+esc(s.t)+'</b><small>'+esc(s.s)+'</small></div>'+
+    '<span class="go-l" data-open="'+s.go+'">Abrir ›</span></div>';
+}
+
+var filtro = "all";
+function rLib(){
+  var f = document.getElementById("q").value.toLowerCase().trim(), n = 0, h = "";
+  M.forEach(function(m){
+    if(filtro==="done" ? !done[m.k] : (filtro!=="all" && m.g!==filtro)) return;
+    if(f && (m.t+" "+m.d).toLowerCase().indexOf(f)<0) return;
+    n++;
+    var lk = isLocked(m), tag = m.g==="main"?"Principal":m.g==="bonus"?"Bônus "+m.n:"Mais receitas";
+    h += '<button class="card li" data-'+(lk?'lock':'open')+'="'+m.k+'"><img src="'+img(m.k)+'" alt=""><div style="flex:1;min-width:0"><h3>'+esc(m.t)+'</h3><p>'+esc(m.d)+'</p>'+
+      '<div class="meta"><span class="pill">'+tag+'</span><span class="pill">'+m.pg+' págs.</span>'+(done[m.k]?'<span class="pill ok">✓ Concluído</span>':'')+(lk?'<span class="pill lk">🔒 Bloqueado</span>':'')+'</div></div></button>';
+  });
+  document.getElementById("lib").innerHTML = h;
+  document.getElementById("empty").style.display = n ? "none" : "block";
+}
+
+function rChk(){
+  var c = counts();
+  document.getElementById("pc-l").textContent = c.got+" de "+c.total+" concluídos";
+  document.getElementById("pc-p").textContent = c.pct+"%";
+  document.getElementById("pc-b").style.width = c.pct+"%";
+  document.getElementById("steps").innerHTML = STEPS.map(stepHtml).join("");
+  document.getElementById("mats").innerHTML = M.filter(function(m){ return !isLocked(m); }).map(function(m){
+    return '<div class="it'+(done[m.k]?" on":"")+'" data-mat="'+m.k+'" role="checkbox" aria-checked="'+(!!done[m.k])+'" tabindex="0"><span class="box">✓</span><div><b>'+esc(m.t)+'</b><small>'+m.pg+' páginas</small></div><span class="go-l" data-open="'+m.k+'">Abrir ›</span></div>';
+  }).join("");
+}
+
+function rUps(cfId, dotsId){
+  cfSet(cfId, dotsId, M.filter(function(m){ return m.g==="more"; }).map(function(m){
+    var lk = isLocked(m);
+    return '<div class="cfc'+(lk?" lock":"")+(done[m.k]?" done":"")+'"><div class="im"><img src="'+img(m.k)+'" alt="" draggable="false"><span class="ck">✓</span></div><div class="bd"><h3>'+esc(m.t)+'</h3><p>'+esc(m.d)+'</p>'+
+      (lk ? '<button class="b v" data-buy="1">🔓 Liberar</button>' : '<button class="b v" data-open="'+m.k+'">👁️ Abrir</button>')+'</div></div>';
+  }).join(""));
+}
+function rMore(){
+  var lk = CONFIG.locked && M.some(function(m){ return isLocked(m); });
+  document.getElementById("promo").innerHTML = lk
+    ? '<small>Coleção completa</small><h3>Mais 4 livros de receitas</h3><p>Cafés da manhã, jantinhas, docinhos e suquinhos para completar a rotina da família.</p><button class="b v" data-buy="1">Quero liberar agora</button><button class="b o" data-have="1" style="margin-top:10px">Já comprei</button>'
+    : '<small>Bônus liberado</small><h3>Mais 4 livros de receitas</h3><p>Cafés da manhã, jantinhas, docinhos e suquinhos. Aproveite!</p>';
+  rUps("cf-m", "d-m");
+}
+
+/* ===== roteamento por hash (botão voltar funciona) ===== */
+var TABS = ["home","lib","chk","more"];
+function render(){
+  rHome(); rLib(); rChk(); rMore();
+}
+function route(){
+  var h = location.hash.replace(/^#\/?/, "") || "home", parts = h.split("/");
+  if(parts[0]==="ler" && byKey(parts[1])){ openReader(byKey(parts[1])); return; }
+  closeReader();
+  var t = TABS.indexOf(parts[0])>=0 ? parts[0] : "home";
+  prevTab = t;
+  TABS.forEach(function(x){ document.getElementById("v-"+x).classList.toggle("on", x===t); });
+  document.querySelectorAll(".tabs button").forEach(function(b){ b.classList.toggle("on", b.getAttribute("data-go")===t); });
+  render();
+  if(!route._first) window.scrollTo(0,0);
+  route._first = false;
+}
+route._first = true;
+function go(t){ location.hash = "#/"+t; }
+
+/* ===== leitor =====
+ * O iframe é criado do zero a cada abertura e carregado com location.replace,
+ * então o Drive não empilha entradas no histórico (era isso que causava a tela
+ * branca e o "voltar duas vezes"). Os botões fecham direto, sem history.back(). */
+var cur = null, rd = document.getElementById("reader"), rl = document.getElementById("rl"), prevTab = "home";
+function newFrame(url){
+  var old = document.getElementById("rf"), n = document.createElement("iframe");
+  n.id = "rf"; n.title = "PDF"; n.setAttribute("allow", "autoplay");
+  old.parentNode.replaceChild(n, old);
+  if(url){
+    n.contentWindow.location.replace(url);
+    n.addEventListener("load", function(){ rl.style.display = "none"; });
+  }
+}
+function openReader(m){
+  if(isLocked(m)){ go("more"); return; }
+  var id = fileId(m); if(!id) return;
+  if(cur !== m.k){
+    cur = m.k;
+    document.getElementById("rt").textContent = m.t;
+    document.getElementById("rs").textContent = m.pg+" páginas";
+    document.getElementById("rdl").href = L(id,"dl");
+    document.getElementById("rdr").href = L(id,"view");
+    rl.style.display = "grid";
+    newFrame(L(id,"prev"));
+    last = m.k; sv("lf_last", last);
+    ev("visualizar_pdf"); ev("pdf_"+m.k);
+  }
+  rdBtn();
+  rd.classList.add("on");
+  document.body.style.overflow = "hidden";
+}
+function closeReader(){
+  if(!rd.classList.contains("on")) return;
+  rd.classList.remove("on");
+  newFrame(null); cur = null;
+  document.body.style.overflow = "";
+}
+function rdBtn(){
+  var b = document.getElementById("rdone"), d = !!done[cur];
+  b.classList.toggle("done", d);
+  b.textContent = d ? "✓ Concluído (toque para desfazer)" : "✓ Marcar como concluído";
+}
+function backFromReader(){
+  closeReader();
+  location.replace("#/" + prevTab);
+}
+
+/* ===== ações ===== */
+function toggleMat(k){ done[k] = !done[k]; if(!done[k]) delete done[k]; sv("lf_done", done); if(done[k]) ev("concluiu_material"); }
+function toggleStep(id){ steps[id] = !steps[id]; if(!steps[id]) delete steps[id]; sv("lf_steps", steps); }
+
+document.addEventListener("click", function(e){
+  var t = e.target;
+  var o = t.closest("[data-open]");
+  if(o){ e.preventDefault(); e.stopPropagation(); location.hash = "#/ler/"+o.getAttribute("data-open"); return; }
+  var s = t.closest("[data-step]");
+  if(s){ toggleStep(s.getAttribute("data-step")); render(); return; }
+  var mt = t.closest("[data-mat]");
+  if(mt){ toggleMat(mt.getAttribute("data-mat")); render(); return; }
+  var g = t.closest("[data-go]");
+  if(g){
+    var f = g.getAttribute("data-f");
+    if(f){ filtro = f; document.querySelectorAll(".chip").forEach(function(c){ c.classList.toggle("on", c.getAttribute("data-f")===f); }); }
+    go(g.getAttribute("data-go")); return;
+  }
+  var ch = t.closest(".chip");
+  if(ch){ filtro = ch.getAttribute("data-f"); document.querySelectorAll(".chip").forEach(function(c){ c.classList.toggle("on", c===ch); }); rLib(); return; }
+  if(t.closest("[data-buy]")){ ev("clique_liberar_upsell"); if(CONFIG.checkoutUrl) window.open(CONFIG.checkoutUrl, "_blank"); else toast("Link de compra ainda não configurado"); return; }
+  if(t.closest("[data-have]")||t.closest("[data-lock]")){ openMod(); return; }
+  var dl = t.closest("[data-dl]"); if(dl) ev("baixar_pdf");
+});
+document.addEventListener("keydown", function(e){
+  if((e.key==="Enter"||e.key===" ") && e.target.matches("[data-step],[data-mat]")){ e.preventDefault(); e.target.click(); }
+  if(e.key==="Escape"){ if(rd.classList.contains("on")) backFromReader(); closeMod(); }
+});
+document.getElementById("q").addEventListener("input", rLib);
+document.getElementById("rback").addEventListener("click", backFromReader);
+document.getElementById("rb2").addEventListener("click", backFromReader);
+document.getElementById("rdone").addEventListener("click", function(){ toggleMat(cur); rdBtn(); toast(done[cur] ? "Marcado como concluído ✓" : "Desmarcado"); });
+document.getElementById("rdl").addEventListener("click", function(){ ev("baixar_pdf"); });
+window.addEventListener("hashchange", route);
+
+/* ===== carrossel 3D: o card central fica em destaque, os outros recuam e ficam opacos ===== */
+function cfUpd(el){
+  var cards = el.querySelectorAll(".cfc"); if(!cards.length) return;
+  var mid = el.scrollLeft + el.clientWidth/2, best = 0, bd = 1e9, reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  for(var i=0;i<cards.length;i++){
+    var c = cards[i], d = (c.offsetLeft + c.offsetWidth/2 - mid) / c.offsetWidth, a = Math.min(Math.abs(d), 2), sg = Math.max(-1.6, Math.min(1.6, d));
+    if(a < bd){ bd = a; best = i; }
+    if(!reduce){
+      c.style.transform = "translateZ("+(-a*80).toFixed(1)+"px) rotateY("+(-sg*24).toFixed(1)+"deg) scale("+(1-.12*a).toFixed(3)+")";
+      c.style.opacity = Math.max(.28, 1 - .45*a).toFixed(2);
+    }
+    c.style.zIndex = Math.round(100 - a*10);
+    c.classList.toggle("act", a < .35);
+  }
+  if(el._dots){ var ds = el._dots.children; for(var j=0;j<ds.length;j++) ds[j].classList.toggle("on", j===best); }
+}
+function cfSet(id, dotsId, html){
+  var el = document.getElementById(id), sl = el.scrollLeft;
+  el.innerHTML = html;
+  var dots = document.getElementById(dotsId), n = el.querySelectorAll(".cfc").length, h = "";
+  for(var i=0;i<n;i++) h += "<i></i>";
+  dots.innerHTML = h; el._dots = dots;
+  if(!el._bound){ el._bound = true; cfBind(el); }
+  el.scrollLeft = sl; cfUpd(el);
+  requestAnimationFrame(function(){ cfUpd(el); });
+}
+function cfBind(el){
+  var raf = 0, down = false, sx = 0, sl = 0, moved = false;
+  el.addEventListener("scroll", function(){ if(!raf) raf = requestAnimationFrame(function(){ raf = 0; cfUpd(el); }); }, {passive:true});
+  window.addEventListener("resize", function(){ cfUpd(el); });
+  el.addEventListener("mousedown", function(e){ down = true; moved = false; sx = e.pageX; sl = el.scrollLeft; el.classList.add("drag"); });
+  window.addEventListener("mouseup", function(){ if(!down) return; down = false; el.classList.remove("drag"); snap(); });
+  window.addEventListener("mousemove", function(e){ if(!down) return; var dx = e.pageX - sx; if(Math.abs(dx) > 4) moved = true; el.scrollLeft = sl - dx; });
+  function snap(){ // centraliza o card mais próximo ao soltar o mouse
+    var cards = el.querySelectorAll(".cfc"), mid = el.scrollLeft + el.clientWidth/2, bi = 0, bd = 1e9;
+    for(var i=0;i<cards.length;i++){ var dd = Math.abs(cards[i].offsetLeft + cards[i].offsetWidth/2 - mid); if(dd < bd){ bd = dd; bi = i; } }
+    if(cards[bi]) centraliza(cards[bi]);
+  }
+  function centraliza(c){ el.scrollTo({left: c.offsetLeft + c.offsetWidth/2 - el.clientWidth/2, behavior:"smooth"}); }
+  // toque num card de fundo traz ele pro centro; só o card do meio abre
+  el.addEventListener("click", function(e){
+    if(moved){ e.stopPropagation(); e.preventDefault(); moved = false; return; }
+    var c = e.target.closest(".cfc");
+    if(c && !c.classList.contains("act")){ e.stopPropagation(); e.preventDefault(); centraliza(c); }
+  }, true);
+}
+
+/* ===== modal de e-mail (liberação por compra) ===== */
+var mod = document.getElementById("mod");
+function openMod(){ mod.classList.add("on"); document.getElementById("emsg").textContent = ""; setTimeout(function(){ document.getElementById("em").focus(); }, 60); }
+function closeMod(){ mod.classList.remove("on"); }
+document.getElementById("mcancel").addEventListener("click", closeMod);
+mod.addEventListener("click", function(e){ if(e.target===mod) closeMod(); });
+document.getElementById("mok").addEventListener("click", function(){
+  var em = document.getElementById("em").value.trim().toLowerCase(), msg = document.getElementById("emsg");
+  if(!/^\S+@\S+\.\S+$/.test(em)){ msg.textContent = "Digite um e-mail válido."; return; }
+  if(!CONFIG.api){ msg.textContent = "Verificação de compra ainda não configurada."; return; }
+  var btn = this; btn.disabled = true; btn.textContent = "Verificando…";
+  fetch(CONFIG.api + "?email=" + encodeURIComponent(em)).then(function(r){ return r.json(); }).then(function(j){
+    if(j && j.ok && j.ids){ unlocked = {email: em, ids: j.ids}; sv("lf_unlocked", unlocked); closeMod(); ev("upsell_liberado"); render(); toast("Acesso liberado 🎉"); }
+    else msg.textContent = "Não encontramos uma compra confirmada para esse e-mail.";
+  }).catch(function(){ msg.textContent = "Não foi possível verificar agora. Tente de novo."; })
+  .then(function(){ btn.disabled = false; btn.textContent = "Liberar"; });
+});
+
+route();
+</script>
+</body>
+</html>
