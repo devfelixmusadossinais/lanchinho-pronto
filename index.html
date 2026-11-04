@@ -682,7 +682,7 @@ document.addEventListener("DOMContentLoaded",function(){
   /* popup de saida (exit intent): 1x por visita, reaproveita o popup do downsell */
   (function(){
     var up=document.getElementById("upsell"),tag=up.querySelector(".uptag"),tit=document.getElementById("upTitle"),sub=up.querySelector(".upsub");
-    var orig=[tag.textContent,tit.textContent,sub.innerHTML],t0=Date.now(),lastY=window.scrollY,vistoMax=0,disparou=false;
+    var orig=[tag.textContent,tit.textContent,sub.innerHTML],t0=Date.now(),lastY=0,vistoMax=0,disparou=false;  /* lastY comeca em 0: ler scrollY aqui forcava reflow no load */
     function ja(k){try{return sessionStorage.getItem(k)==="1"}catch(e){return false}}
     function marca(k){try{sessionStorage.setItem(k,"1")}catch(e){}}
     function restaura(){tag.textContent=orig[0];tit.textContent=orig[1];sub.innerHTML=orig[2]}
