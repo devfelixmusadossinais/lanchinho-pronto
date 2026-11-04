@@ -607,10 +607,11 @@ document.addEventListener("DOMContentLoaded",function(){
     if(s>0)setTimeout(tick,1000);
   })();
   /* carrossel de lanches: duplica pra rodar sem buraco.
-     Largura calculada (slide 200px + gap 14px) em vez de ler scrollWidth, que forcava reflow */
+     Largura calculada (slide 200px + gap 14px) em vez de ler scrollWidth, e screen.width no lugar de
+     innerWidth: as duas leituras forcavam reflow no carregamento */
   var t=document.getElementById("lanTrack");
   if(t){
-    var o=t.innerHTML,w=t.children.length*214||1,k=Math.max(1,Math.ceil((window.innerWidth+80)/w)),s="";
+    var o=t.innerHTML,w=t.children.length*214||1,k=Math.max(1,Math.ceil(((screen.width||1280)+80)/w)),s="";
     for(var i=0;i<k;i++)s+=o;
     t.innerHTML=s+s;
     if(k>1)t.style.animationDuration=(30*k)+"s";
